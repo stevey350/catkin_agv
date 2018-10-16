@@ -106,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+#  INCLUDE_DIRS include
 #  LIBRARIES drivertest
   CATKIN_DEPENDS roscpp std_msgs dgvmsg
 #  DEPENDS system_lib
@@ -136,7 +136,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node src/drivertest_node.cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -150,11 +150,10 @@ include_directories(
 
 ## Specify libraries to link a library or executable target against
 
-set(catkin_LIBRARIES "${catkin_LIBRARIES}" "/usr/local/lib/libprotobuf.so")
- target_link_libraries(${PROJECT_NAME}_node
-   ${catkin_LIBRARIES}
-   ${CATKIN_DEVEL_PREFIX}/lib/librobot2015_common_proto.so
- )
+add_executable(${PROJECT_NAME}_node src/drivertest_node.cpp)
+target_link_libraries(${PROJECT_NAME}_node   ${catkin_LIBRARIES} )
+add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 
 #############
 ## Install ##
