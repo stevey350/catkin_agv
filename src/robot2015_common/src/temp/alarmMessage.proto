@@ -1,0 +1,12 @@
+syntax="proto3";
+message AlarmMessage {
+	bool CtrolBoxHighTemAlarm = 1;   	//控制箱高温警告
+	bool CtrolBoxFrozenTemAlarm = 2;   	//控制箱低温警告
+	bool BMSModComLostAlarm = 3;   	//电源管理模块离线告警
+	bool Emergency_Status_stop=4;     //急停开关使能告警
+	
+	bool EcanExternSnsorNdeOFF=5;     //外围传感器软模块离线
+	bool ZmqTransNodeOFF=6;           //zmq通信软模块离线
+	bool JoyTestNodeOFF=7;     //遥控手柄软模块离线
+	 	
+};

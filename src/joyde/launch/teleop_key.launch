@@ -1,0 +1,8 @@
+<launch>
+  <!-- turtlebot_teleop_key already has its own built in velocity smoother -->
+  <node pkg="joyde" type="teleop_key_node" name="teleop_keyboard"  output="screen">
+    <param name="scale_linear" value="1.0" type="double"/>
+    <param name="scale_angular" value="1.0" type="double"/>
+    <remap from="agv/cmd_vel" to="/cmd_vel"/>
+  </node>
+</launch>

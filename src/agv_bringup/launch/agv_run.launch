@@ -1,0 +1,18 @@
+<launch>
+  <arg name="model" default="burger" />
+
+  <arg name="urdf_file" default="$(find xacro)/xacro --inorder '$(find agv_description)/urdf/turtlebot3_$(arg model).urdf.xacro'" />
+  <param name="robot_description" command="$(arg urdf_file)" />
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="50.0" />
+  </node>
+
+  <node name="robotis_joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="false"/>
+    <param name="rate" value="50"/>
+  </node>
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="laser" args="0.4 0 0.14 0 0 0 base_footprint laser 100" /> -->
+
+</launch>
