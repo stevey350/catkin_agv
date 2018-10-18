@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot name="agv" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find agv_description)/urdf/agv_base.xacro" />
+    <xacro:include filename="$(find agv_description)/urdf/lidar.xacro" />
+
+    <xacro:property name="lidar_offset_x" value="0.40" />
+    <xacro:property name="lidar_offset_y" value="0" />
+    <xacro:property name="lidar_offset_z" value="0.185" />
+
+    <agv_base/>
+
+    <!-- Lidar -->
+    <joint name="laser_joint" type="fixed">
+        <origin xyz="${lidar_offset_x} ${lidar_offset_y} ${lidar_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="laser_link"/>
+    </joint>
+
+    <xacro:lidar prefix="laser"/>
+
+</robot>
