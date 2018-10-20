@@ -2,7 +2,7 @@
 <robot name="agv" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:include filename="$(find agv_description)/urdf/agv_base.xacro" />
-    <xacro:include filename="$(find agv_description)/urdf/lidar.xacro" />
+    <xacro:include filename="$(find agv_description)/urdf/sensors/lidar.xacro" />
 
     <xacro:property name="lidar_offset_x" value="0.40" />
     <xacro:property name="lidar_offset_y" value="0" />
