@@ -1,5 +1,7 @@
-#include "ros/ros.h"
-#include "std_msgs/String.h"
+#include <ros/ros.h>
+#include <std_msgs/String.h>
+#include <sensor_msgs/Imu.h>
+#include <tf/transform_datatypes.h>
 
 #include <iostream>
 #include "AsyncSerial.h"
@@ -10,20 +12,15 @@
 using namespace std;
 using namespace boost;
 
-
-float roll_out,pitch_out,yaw_out;
+float rate_x, rate_y, rate_z;
+float accel_x, accel_y, accel_z;
+float roll, pitch, yaw;
 
 void readCallback(const char *data_packet, size_t size)
 {
-
-	short header;
-	short packet_index;
-	float rate_x, rate_y, rate_z;
-	float accel_x, accel_y, accel_z;
-	float roll, pitch, yaw;
-	short check_sum;
-
-	cout<<"size = "<<size<<endl;
+    short header;
+    short packet_index;
+    short check_sum;
 
 	// Verify data packet header 
 	memcpy(&header, data_packet, sizeof(short));
@@ -69,7 +66,7 @@ void readCallback(const char *data_packet, size_t size)
 	memcpy(&accel_y,data_packet+parse_index,float_size);
 	// Acc_Y rate
 	parse_index += float_size;
-	memcpy(&accel_z,data_packet+parse_index,float_size);
+    memcpy(&accel_z ,data_packet+parse_index,float_size);
 
 	// Roll
 	parse_index += float_size;
@@ -83,11 +80,7 @@ void readCallback(const char *data_packet, size_t size)
 
 //	cout << "Rates [deg/sec]:" << rate_x << " " << rate_y << " " << rate_z <<endl;
 //	cout << "Accel [m/sec^2]:" << accel_x << " " << accel_y << " " << accel_z <<endl;
-	cout << "Attitude [deg]:" << roll <<" "<< pitch << " " << yaw <<endl;
-
-	roll_out = roll;
-	pitch_out = pitch;
-	yaw_out = yaw;
+//	cout << "Attitude [deg]:" << roll <<" "<< pitch << " " << yaw <<endl;
 }
 
 
@@ -98,7 +91,8 @@ int main(int argc, char* argv[])
     ros::init(argc, argv, "ins_node");
     ros::NodeHandle nh;
 
-    ros::Publisher ins_pub = nh.advertise<std_msgs::String>("ins_pub", 10);
+//    ros::Publisher ins_pub = nh.advertise<std_msgs::String>("imu_data", 10);
+    ros::Publisher ins_pub = nh.advertise<sensor_msgs::Imu>("imu_data", 10);
     ros::Rate loop_rate(20);
 
     // 2-xna200 initial
@@ -117,8 +111,12 @@ int main(int argc, char* argv[])
 
     serial.setCallback(bind(readCallback, _1, _2));//&
     
+    // rpy -> quaternion
+    tf::Quaternion q;
+
     while(ros::ok())
     {
+/*
         std_msgs::String msg;
 
         std::stringstream ss;
@@ -127,6 +125,25 @@ int main(int argc, char* argv[])
         msg.data = ss.str();
 
         ins_pub.publish(msg);
+*/
+        sensor_msgs::Imu imu_data;
+        imu_data.header.stamp = ros::Time::now();
+        imu_data.header.frame_id = "base_link";
+        q.setRPY(roll, pitch, yaw);
+        imu_data.orientation.x = q.getX();
+        imu_data.orientation.y = q.getY();
+        imu_data.orientation.z = q.getZ();
+        imu_data.orientation.w = q.getW();
+        
+        imu_data.angular_velocity.x = rate_x;
+        imu_data.angular_velocity.y = rate_y; 
+        imu_data.angular_velocity.z = rate_z; 
+
+        imu_data.linear_acceleration.x = accel_x; 
+        imu_data.linear_acceleration.y = accel_y; 
+        imu_data.linear_acceleration.z = accel_z; 
+        
+        ins_pub.publish(imu_data);
 
         ros::spinOnce();
 
