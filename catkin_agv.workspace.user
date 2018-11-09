@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.4.1, 2018-10-26T17:48:17. -->
+<!-- Written by QtCreator 4.4.1, 2018-11-09T11:06:05. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -102,18 +102,18 @@
     <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
     <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges">
-     <value type="QString">CMAKE_PREFIX_PATH=/home/nvidia/catkin_agv/devel:/opt/ros/kinetic</value>
-     <value type="QString">LD_LIBRARY_PATH=/home/nvidia/catkin_agv/devel/lib:/opt/ros/kinetic/lib</value>
-     <value type="QString">PATH=/opt/ros/kinetic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin</value>
-     <value type="QString">PKG_CONFIG_PATH=/home/nvidia/catkin_agv/devel/lib/pkgconfig:/opt/ros/kinetic/lib/pkgconfig</value>
+     <value type="QString">CMAKE_PREFIX_PATH=/home/nvidia/catkin_ws/devel:/home/nvidia/catkin_agv/devel:/opt/ros/kinetic</value>
+     <value type="QString">LD_LIBRARY_PATH=/home/nvidia/catkin_ws/devel/lib:/home/nvidia/catkin_agv/devel/lib:/opt/ros/kinetic/lib</value>
+     <value type="QString">PATH=/home/nvidia/catkin_ws/devel/bin:/opt/ros/kinetic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin</value>
+     <value type="QString">PKG_CONFIG_PATH=/home/nvidia/catkin_ws/devel/lib/pkgconfig:/home/nvidia/catkin_agv/devel/lib/pkgconfig:/opt/ros/kinetic/lib/pkgconfig</value>
      <value type="QString">PWD=/home/nvidia/catkin_agv</value>
-     <value type="QString">PYTHONPATH=/home/nvidia/catkin_agv/devel/lib/python2.7/dist-packages:/opt/ros/kinetic/lib/python2.7/dist-packages</value>
+     <value type="QString">PYTHONPATH=/home/nvidia/catkin_ws/devel/lib/python2.7/dist-packages:/home/nvidia/catkin_agv/devel/lib/python2.7/dist-packages:/opt/ros/kinetic/lib/python2.7/dist-packages</value>
      <value type="QString">QTDIR</value>
-     <value type="QString">ROSLISP_PACKAGE_DIRECTORIES=/home/nvidia/catkin_agv/devel/share/common-lisp</value>
+     <value type="QString">ROSLISP_PACKAGE_DIRECTORIES=/home/nvidia/catkin_ws/devel/share/common-lisp:/home/nvidia/catkin_agv/devel/share/common-lisp</value>
      <value type="QString">ROS_DISTRO=kinetic</value>
      <value type="QString">ROS_ETC_DIR=/opt/ros/kinetic/etc/ros</value>
      <value type="QString">ROS_MASTER_URI=http://localhost:11311</value>
-     <value type="QString">ROS_PACKAGE_PATH=/home/nvidia/catkin_agv/src:/opt/ros/kinetic/share</value>
+     <value type="QString">ROS_PACKAGE_PATH=/home/nvidia/catkin_ws/src:/home/nvidia/catkin_agv/src:/opt/ros/kinetic/share</value>
      <value type="QString">ROS_ROOT=/opt/ros/kinetic/share/ros</value>
      <value type="QString">SHLVL=2</value>
      <value type="QString">TERM=xterm</value>
