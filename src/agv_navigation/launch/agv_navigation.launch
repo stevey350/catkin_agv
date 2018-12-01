@@ -5,7 +5,7 @@
   <include file="$(find agv_bringup)/launch/agv_run.launch" />
 
   <!-- Map server -->
-  <arg name="map_file" default="$(find agv_navigation)/maps/map2.yaml"/>
+  <arg name="map_file" default="$(find agv_navigation)/maps/lab_1130.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <arg name="open_rviz" default="true"/>
@@ -15,7 +15,7 @@
 
   <!-- move_base -->
   <arg name="cmd_vel_topic" default="/cmd_vel" />
-  <arg name="odom_topic" default="odom" />
+  <arg name="odom_topic" default="robot_pose_ekf/odom" />
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
 
@@ -28,6 +28,7 @@
 
     <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
+    <!--remap from="odom" to="robot_pose_ekf/odom_combined" /-->
   </node>
   
   <!-- rviz -->

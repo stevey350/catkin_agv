@@ -8,7 +8,7 @@
 
 
 #define FRAME_LEN	42
-
+#define PI 3.141592
 using namespace std;
 using namespace boost;
 
@@ -80,7 +80,7 @@ void readCallback(const char *data_packet, size_t size)
 
 //	cout << "Rates [deg/sec]:" << rate_x << " " << rate_y << " " << rate_z <<endl;
 //	cout << "Accel [m/sec^2]:" << accel_x << " " << accel_y << " " << accel_z <<endl;
-//	cout << "Attitude [deg]:" << roll <<" "<< pitch << " " << yaw <<endl;
+//	cout << "Attitude [rad]:" << roll*PI/180 <<" "<< -pitch*PI/180 << " " << -yaw*PI/180 <<endl;
 }
 
 
@@ -129,19 +129,20 @@ int main(int argc, char* argv[])
         sensor_msgs::Imu imu_data;
         imu_data.header.stamp = ros::Time::now();
         imu_data.header.frame_id = "base_link";
-        q.setRPY(roll, pitch, yaw);
+        //yaw = -yaw * PI / 180;//frame is different, z_angular_velocity is inverse to odom's
+        q.setRPY(0, 0, -yaw*PI/180);
         imu_data.orientation.x = q.getX();
         imu_data.orientation.y = q.getY();
         imu_data.orientation.z = q.getZ();
         imu_data.orientation.w = q.getW();
-        
-        imu_data.angular_velocity.x = rate_x;
-        imu_data.angular_velocity.y = rate_y; 
-        imu_data.angular_velocity.z = rate_z; 
+        imu_data.orientation_covariance = {1e-10,0,0,0,1e-10,0,0,0,2.3504e-9};
+        imu_data.angular_velocity.x = 0;//rate_x;
+        imu_data.angular_velocity.y = 0;//rate_y; 
+        imu_data.angular_velocity.z = -rate_z * PI / 180; 
 
         imu_data.linear_acceleration.x = accel_x; 
         imu_data.linear_acceleration.y = accel_y; 
-        imu_data.linear_acceleration.z = accel_z; 
+        imu_data.linear_acceleration.z = 0;//accel_z; 
         
         ins_pub.publish(imu_data);
 
