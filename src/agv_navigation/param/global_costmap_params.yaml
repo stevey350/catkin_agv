@@ -1,7 +1,13 @@
 global_costmap:
   global_frame: /map
+<<<<<<< HEAD
   robot_base_frame: /base_footprint
   update_frequency: 2.0
   publish_frequency: 0.1
+=======
+  robot_base_frame: /base_link
+  update_frequency: 2.0
+  publish_frequency: 0
+>>>>>>> dev1109
   static_map: true
   transform_tolerance: 1.0

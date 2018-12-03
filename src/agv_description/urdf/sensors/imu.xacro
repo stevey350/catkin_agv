@@ -6,7 +6,11 @@
             <visual>
                 <origin xyz=" 0 0 0 " rpy="0 0 0" />
                 <geometry>
+<<<<<<< HEAD
                     <box size="0.36 0.36 0.17" />
+=======
+                    <box size="0.036 0.036 0.017" />
+>>>>>>> dev1109
                 </geometry>
                 <material name="black"/>
             </visual>
