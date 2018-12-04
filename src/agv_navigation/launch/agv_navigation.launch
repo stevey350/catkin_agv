@@ -20,11 +20,7 @@
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
 
     <rosparam file="$(find agv_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
-<<<<<<< HEAD
-    <rosparam file="$(find agv_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
-=======
     <!-- <rosparam file="$(find agv_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" /> -->
->>>>>>> dev1109
     <rosparam file="$(find agv_navigation)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find agv_navigation)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find agv_navigation)/param/move_base_params.yaml" command="load" />
