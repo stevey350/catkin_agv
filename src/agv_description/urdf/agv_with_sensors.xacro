@@ -31,14 +31,6 @@
         <child link="imu_link"/>
     </joint>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <xacro::imu prefix="imu"/>
-=======
     <xacro:imu prefix="imu"/>
->>>>>>> dev1109
-=======
-    <xacro:imu prefix="imu"/>
->>>>>>> upstream/develop
 
 </robot>
