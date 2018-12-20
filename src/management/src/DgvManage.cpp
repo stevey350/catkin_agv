@@ -1830,8 +1830,8 @@ void Dgv_Manage::Cmd_Vel_Callback(const geometry_msgs::Twist& cmd_vel)
 
           }
 
-        float LEFT = (speed_velocity - (angle_velocity * 0.18 / 2)) * 1000;    // mm/s
-        float RIGHT = (speed_velocity + (angle_velocity * 0.18 / 2)) * 1000;
+        float LEFT = (speed_velocity - (angle_velocity * 0.6045 / 2)) * 1000;    // mm/s 0.18
+        float RIGHT = (speed_velocity + (angle_velocity * 0.6045 / 2)) * 1000;
 
         int leftrpm = calculate_rpm_speed(DEV_DRIVER_ADD_L, LEFT);
         int rightrpm = calculate_rpm_speed(DEV_DRIVER_ADD_R, RIGHT);
