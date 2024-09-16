@@ -15,7 +15,7 @@ using namespace std;
 
 
 #define TICK2RAD 0.00062832      // 360/10000 * 3.1416/180    one pulse -> degree -> radian
-
+//#define TICK2RAD 0.00057625
 static int count_sum = 0;
 
 
@@ -133,8 +133,8 @@ class Odom_Transformer
  // if(step_time ==0)
  //     return false;
 
-    v = 0.09 * (wheel_r + wheel_l) / 2 /step_time;     //0.09 is the radius of wheel, l = r * angle
-    w = 0.09 * (wheel_r - wheel_l) / 0.57 / step_time;  // 0.638 is the distances of wheels
+    v = 0.09018 * (wheel_r + wheel_l) / 2 /step_time;     //0.09018 is the radius of wheel, l = r * angle
+    w = 0.09018 * (wheel_r - wheel_l) / 0.60626 / step_time; // 0.60626 is the distances of wheels (0.585)
 
     joint_velocity[0] = wheel_l / step_time;   // joint_states  left_wheeel_velocity
     joint_velocity[1] = wheel_r / step_time;
@@ -147,6 +147,7 @@ class Odom_Transformer
     odom_pose[2] += w * step_time;
 
     ROS_INFO("position.x= %f.\n",odom_pose[0]);
+    ROS_INFO("position.y= %f.\n",odom_pose[1]);
     ROS_INFO("yaw = %f.\n",odom_pose[2]);
 
     odom_vel[0] = v;
@@ -157,7 +158,7 @@ class Odom_Transformer
     geometry_msgs::Quaternion odom_rotation = tf::createQuaternionMsgFromYaw(odom_pose[2]);
 
   // odom_tf
-
+/*
     geometry_msgs::TransformStamped odom_tf;
 
     odom_tf.header.stamp = current_time;
@@ -169,7 +170,7 @@ class Odom_Transformer
     odom_tf.transform.rotation = odom_rotation;
 
     tfbroadcaster.sendTransform(odom_tf);
-
+*/
 
    // publish odom;
 
@@ -184,6 +185,38 @@ class Odom_Transformer
     odom.twist.twist.linear.x = odom_vel[0];
     odom.twist.twist.angular.z = odom_vel[2];
 
+    //add odom covariance, refer to wiki
+    if (v == 0 && w == 0)
+    {
+        odom.pose.covariance = {1e-9, 0, 0, 0, 0, 0,
+                                0, 1e-3, 1e-9, 0, 0, 0,
+                                0, 0, 1e6, 0, 0, 0,
+                                0, 0, 0, 1e6, 0, 0,
+                                0, 0, 0, 0, 1e6, 0,
+                                0, 0, 0, 0, 0, 1e-9};
+        odom.twist.covariance = {1e-9, 0, 0, 0, 0, 0,
+                                0, 1e-3, 1e-9, 0, 0, 0,
+                                0, 0, 1e6, 0, 0, 0,
+                                0, 0, 0, 1e6, 0, 0,
+                                0, 0, 0, 0, 1e6, 0,
+                                0, 0, 0, 0, 0, 1e-9};
+    }
+    else
+    {
+        odom.pose.covariance = {1e-3, 0, 0, 0, 0, 0,
+                                0, 1e-3, 0, 0, 0, 0,
+                                0, 0, 1e6, 0, 0, 0,
+                                0, 0, 0, 1e6, 0, 0,
+                                0, 0, 0, 0, 1e6, 0,
+                                0, 0, 0, 0, 0, 1e3};
+        odom.twist.covariance = {1e-3, 0, 0, 0, 0, 0,
+                                0, 1e-3, 0, 0, 0, 0,
+                                0, 0, 1e6, 0, 0, 0,
+                                0, 0, 0, 1e6, 0, 0,
+                                0, 0, 0, 0, 1e6, 0,
+                                0, 0, 0, 0, 0, 1e3};
+
+    }
     odom_pub.publish(odom);
 
     // publish joint_states
@@ -232,6 +265,7 @@ class Odom_Transformer
        int encoder_l;
        int encoder_r;
        double time_re;
+
 };
 
 int main(int argc, char **argv)

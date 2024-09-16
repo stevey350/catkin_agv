@@ -26,13 +26,16 @@
 	
 	<node pkg="dkincocanfd133" name="dkincocanfd133_node"  type="dkincocanfd133" output="screen" args=" $(arg CAN1) $(arg DEV_DRIVER_ADD_R) -1 $(arg DEV_DRIVER_ADD_L) 1" />
 	
-	<node pkg="joyde" name="JoyTestNode"  type="joystick_node" output="screen"/>
+	<!-- <include file="$(find agv_navigation)/launch/velocity_smoother.launch.xml"/> -->
+
+    <node pkg="joyde" name="JoyTestNode"  type="joystick_node" output="screen"/>
 	<node pkg="management" name="dgv_manageNode"  type="dgv_manageNode" output="screen"/>
 
 	<!-- <node pkg="zmq_ros" name="ZmqTransNode"  type="ZmqtransNode" output="screen"/> -->
 	<!-- <node pkg="uart_ctrl" name="uart_ctrlNode"  type="uart_ctrlNode" output="screen"/> -->
 
 	<node pkg="drivertest" name="odom" type="drivertest_node" output="screen" />
+    <node pkg="ins_xna200" name="imu_data" type="ins_xna200_node" output="screen" />
 
     <node name="urg_node" pkg="urg_node" type="urg_node" output="screen">
       <param name="ip_address" value=""/>
